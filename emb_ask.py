@@ -5,7 +5,7 @@ import json
 import nltk
 from nltk.tokenize import word_tokenize
 
-# API 설정
+# API settings
 API_KEY = '[Your API Key]'
 MODEL = 'text-embedding-3-large'
 HEADERS = {
@@ -69,7 +69,7 @@ def ask_openai(prompt):
 
 # Example usage
 if __name__ == "__main__":
-    user_input = """SQL 관련 패킷을 UDP로 수신받아서 처리하는 부분에 대해서 설명해줘."""
+    user_input = """Explain the part about receiving and processing SQL-related packets via UDP."""
     similar_files = find_most_similar(user_input)
 
     nltk.download('punkt')    
@@ -84,13 +84,13 @@ if __name__ == "__main__":
         if token_total > 120 * 1024:
             break
 
-        prompt += f"### 참고자료 {i}\n{content}\n\n"
+        prompt += f"### Reference {i}\n{content}\n\n"
 
     print("Sending prompt to OpenAI...")
     response = ask_openai(prompt)
     print("OpenAI Response received. Saving to response.md...")
 
-    # 답변을 response.md 파일로 저장
+    # Save the answer to response.md file
     with open('response.md', 'w', encoding='utf-8') as file:
         file.write(response)
 

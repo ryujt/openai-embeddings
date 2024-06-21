@@ -2,7 +2,7 @@ import os
 import requests
 import json
 
-# API 설정
+# API Configuration
 API_KEY = '[Your API Key]'
 MODEL = 'text-embedding-3-large'
 HEADERS = {
