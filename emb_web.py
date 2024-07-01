@@ -10,7 +10,7 @@ import re
 
 app = Flask(__name__)
 
-# API 설정
+# API configuration
 API_KEY = '[Your API Key]'
 MODEL = 'text-embedding-3-large'
 HEADERS = {
@@ -88,12 +88,12 @@ def index():
         embeddings = load_embeddings(selected_files)
         similar_files = find_most_similar(user_input, embeddings)
         
-        print("\n===== 유사도로 선택된 파일 =====")
+        print("\n===== Files selected by similarity =====")
         for filename, similarity in similar_files:
             print(f"{filename}: {similarity}")
         
         token_total = 0
-        prompt = f"제공되는 참고자료를 토대로 대답해줘.\n{user_input}\n\n"
+        prompt = f"Please answer based on the provided reference materials.\n{user_input}\n\n"
         
         used_files = []
         for i, (filename, similarity) in enumerate(similar_files, 1):
@@ -102,18 +102,18 @@ def index():
             if token_total + token_count > 120 * 1024:
                 break
             token_total += token_count
-            prompt += f"### 참고자료 {i}\n{content}\n\n"
+            prompt += f"### Reference material {i}\n{content}\n\n"
             used_files.append(filename)
 
-        print(f"\n===== 프롬프트 생성 정보 =====")
-        print(f"총 토큰 수: {token_total}")
-        print(f"사용된 파일: {used_files}")
+        print(f"\n===== Prompt generation information =====")
+        print(f"Total tokens: {token_total}")
+        print(f"Used files: {used_files}")
 
-        print("\n===== OpenAI API 호출 중 =====")
+        print("\n===== Calling OpenAI API =====")
         response = ask_openai(prompt)
         
-        print("\n===== OpenAI 응답 정보 =====")
-        print(f"응답 길이: {len(response)} 글자")
+        print("\n===== OpenAI response information =====")
+        print(f"Response length: {len(response)} characters")
 
         return render_template('result.html', question=user_input, answer=response, selected_files=selected_files)
     
