@@ -6,6 +6,7 @@ This project provides a system for embedding source code files and generating re
 
 1. `emb_save.py`: Script for embedding and saving source code files
 2. `emb_ask.py`: Script for finding relevant code based on user queries and generating responses via OpenAI API
+3. `emb_web.py`: Web application for interacting with the embedded code and generating responses
 
 ## Usage
 
@@ -15,7 +16,7 @@ This project provides a system for embedding source code files and generating re
 - Install required libraries:
 
 ```
-pip install requests numpy nltk
+pip install flask requests numpy nltk
 ```
 
 - Obtain an OpenAI API key from the [OpenAI website](https://openai.com/).
@@ -49,11 +50,32 @@ python emb_ask.py
 
 4. The generated response will be saved in a `response.md` file.
 
+### 4. Web Application (emb_web.py)
+
+1. Open `emb_web.py` and set `API_KEY` to your OpenAI API key.
+
+2. Ensure that the `.jsonl` files containing the embeddings are in the same directory as `emb_web.py`.
+
+3. Run the web application:
+
+```
+python emb_web.py
+```
+
+4. Open a web browser and navigate to `http://localhost:5000`.
+
+5. Select the `.jsonl` files you want to use for the query.
+
+6. Enter your question and submit.
+
+7. The application will display the selected files, your question, and the generated answer.
+
 ## Important Notes
 
 - Securely manage your API key. Do not upload it to public repositories.
 - Be mindful of API usage and associated costs.
 - Processing large codebases may take considerable time.
+- The web application (`emb_web.py`) is set to run in debug mode. For production use, disable debug mode and use a production-ready WSGI server.
 
 ## License
 
